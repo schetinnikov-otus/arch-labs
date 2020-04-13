@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: hello-deployment
+spec:
+    replicas: 4
+    selector:
+       matchLabels:
+          app: hello-py-app
+    strategy:
+      type: Recreate
+    template:
+       metadata:
+          labels:
+             app: hello-py-app
+       spec:
+          containers:
+          - name: hello-py
+            image: hello-py:v2
+            ports:
+              - name: web 
+                containerPort: 80

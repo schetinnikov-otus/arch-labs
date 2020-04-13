@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+    name: hello-rs-demo
+spec:
+    replicas: 3
+    selector:
+       matchLabels:
+          app: hello-demo
+    template:
+       metadata:
+          labels:
+             app: hello-demo
+       spec:
+          containers:
+          - name: hello-demo
+            image: hello-py:v1
+            ports:
+              - containerPort: 80
