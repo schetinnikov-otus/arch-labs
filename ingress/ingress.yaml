@@ -1,17 +1,15 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: hello-ingress-canary
+  name: hello-ingress
   annotations:
+    kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
-    nginx.ingress.kubernetes.io/canary: "true"
-    nginx.ingress.kubernetes.io/canary-weight: "20"
 spec:
   rules:
-  - host: hello.world
-    http:
+  - http:
       paths:
         - path: /myapp($|/)(.*)
           backend:
-            serviceName: hello-service-canary
+            serviceName: hello-service
             servicePort: 9000
