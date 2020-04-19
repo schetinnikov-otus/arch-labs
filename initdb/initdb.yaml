@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hello-initdb
+spec:
+  template:
+    metadata:
+      name: hello-initdb
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: post-install-job
+        env:
+          - name: DATABASE_URI
+            value: "pstgresql://myuser:passwd@postgres/myapp"
+        image: postgres:latest
+        command:
+          - sh
+          - "-c"
+          - |
+            psql $DATABASE_URI <<'EOF'
+              create table client (id bigint primary key, name varchar);
+              insert into client (id, name) values (1, 'Konstantin');
+            EOF
+  backoffLimit: 2

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: hello-deployment-canary
+spec:
+    replicas: 1
+    selector:
+       matchLabels:
+          app: hello-py-app-canary
+    template:
+       metadata:
+          labels:
+             app: hello-py-app-canary
+       spec:
+          containers:
+          - name: hello-py
+            image: hello-py:v5
+            ports:
+              - name: web 
+                containerPort: 80

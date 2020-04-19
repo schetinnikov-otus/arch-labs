@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hello-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - host: hello.world
+    http:
+      paths:
+        - path: /myapp($|/)(.*)
+          backend:
+            serviceName: hello-service
+            servicePort: 9000
