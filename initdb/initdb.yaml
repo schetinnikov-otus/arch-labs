@@ -12,7 +12,7 @@ spec:
       - name: post-install-job
         env:
           - name: DATABASE_URI
-            value: "pstgresql://myuser:passwd@postgres/myapp"
+            value: "postgresql://myuser:passwd@postgres/myapp"
         image: postgres:latest
         command:
           - sh
