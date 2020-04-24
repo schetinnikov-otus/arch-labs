@@ -1,0 +1,26 @@
+replicaCount: 2
+
+image:
+  repository: hello-py
+
+service:
+  type: NodePort
+  port: 9000
+
+postgresql:
+  enabled: true
+  postgresqlUsername: myuser
+  postgresqlPassword: passwd
+  postgresqlDatabase: myapp
+  service:
+    port: "5432"
+
+metrics:
+  serviceMonitor:
+    enabled: true
+  
+ingress:
+  enabled: true
+  hosts:
+    - host: hello.world
+      paths: ["/app"]

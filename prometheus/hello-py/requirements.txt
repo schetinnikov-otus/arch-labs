@@ -1,0 +1,7 @@
+Flask==1.1.2
+Flask-SQLAlchemy
+Flask-Migrate
+psycopg2
+Flask-Script
+# Prometheus Python client
+prometheus-client==0.7.1
