@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: grafana-import-dashboards
+  name: grafana-my-dashboards
   labels:
     grafana_dashboard: "1"
 data:
-  grafana-net-3-dashboard.json: |
+  grafana-myapp-dashboard.json: |-
     {
       "annotations": {
         "list": [
