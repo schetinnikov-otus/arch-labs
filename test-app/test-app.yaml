@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: test-app
+  labels:
+    app: test-app
+spec:
+  template:
+    metadata:
+      name: test-app
+      labels:
+        app: test-app
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: test-app
+        image: test-app:v1
+        env:
+          - name: SERVICE_NAME
+            value: "app"
+          - name: SERVICE_PORT
+            value: "80"
+  backoffLimit: 0

@@ -1,0 +1,12 @@
+apiVersion: skaffold/v2alpha4
+kind: Config
+metadata:
+  name: test-app
+build:
+  artifacts:
+  - image: test-app
+    context: tests
+deploy:
+  kubectl:
+    manifests:
+    - test-app.yaml
