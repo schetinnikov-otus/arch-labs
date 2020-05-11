@@ -1,0 +1,9 @@
+replicaCount: 2
+
+fullnameOverride: "app"
+
+image: "app:0.1.0"
+
+service:
+  type: NodePort
+  port: 9000

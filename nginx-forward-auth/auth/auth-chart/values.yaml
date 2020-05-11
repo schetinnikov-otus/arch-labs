@@ -1,0 +1,25 @@
+replicaCount: 1
+
+fullnameOverride: "auth"
+
+image: "auth:0.1.0"
+
+service:
+  type: NodePort
+  port: 9000
+
+postgresql:
+  enabled: true
+  postgresqlUsername: authuser
+  postgresqlPassword: authpasswd
+  postgresqlDatabase: authdb
+  persistence:
+    size: 0.1Gi
+  service:
+    port: "5432"
+
+ingress:
+  enabled: false
+  hosts:
+    - host: arch.homework
+      paths: ["/auth"]

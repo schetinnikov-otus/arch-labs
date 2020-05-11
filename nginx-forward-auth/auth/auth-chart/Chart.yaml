@@ -1,0 +1,16 @@
+apiVersion: v2
+name: auth-chart
+description: An auth service
+
+type: application
+
+version: 0.1.0
+appVersion: 0.1.0
+
+dependencies:
+  - name: postgresql
+    version: 8.x.x
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
+    tags:
+      - auth-database

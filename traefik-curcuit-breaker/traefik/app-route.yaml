@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: app-route
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: PathPrefix(`/probe`)
+    kind: Rule
+    middlewares:
+      - name: curcuit-breaker
+    services:
+    - name: app
+      port: 9000

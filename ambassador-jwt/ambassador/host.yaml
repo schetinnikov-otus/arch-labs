@@ -1,0 +1,11 @@
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: hello-world
+spec:
+  hostname: hello.world
+  acmeProvider:
+    authority: none
+  requestPolicy:
+    insecure:
+      action: Route

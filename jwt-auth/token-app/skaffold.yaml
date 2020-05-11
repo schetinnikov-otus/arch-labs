@@ -1,0 +1,16 @@
+apiVersion: skaffold/v2beta2
+kind: Config
+build:
+  tagPolicy:
+    sha256: {}
+  artifacts:
+  - image: tokenapp
+    context: .
+deploy:
+  helm:
+    releases:
+    - name: tokenapp
+      chartPath: tokenapp-chart
+      skipBuildDependencies: false
+      values:
+        image: tokenapp

@@ -1,0 +1,13 @@
+replicaCount: 2
+
+fullnameOverride: "app"
+
+image: "app:0.1.0"
+
+service:
+  type: NodePort
+  port: 9000
+
+rate:
+  fail: 0.1
+  slow: 0.01

@@ -1,0 +1,13 @@
+apiVersion: getambassador.io/v2
+kind:  Mapping
+metadata:
+  name:  app-mapping
+spec:
+  prefix: /app
+  service: app:9000
+
+  # # retries
+  # # https://www.envoyproxy.io/docs/envoy/v1.9.0/configuration/http_filters/router_filter#x-envoy-retry-on
+  retry_policy:
+    retry_on: "5xx"
+    num_retries: 10

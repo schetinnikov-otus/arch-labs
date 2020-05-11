@@ -1,0 +1,9 @@
+replicaCount: 1
+
+fullnameOverride: "simple-app"
+
+image: "simple-app:0.1.0"
+
+service:
+  type: NodePort
+  port: 9000

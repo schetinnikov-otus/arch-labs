@@ -1,0 +1,34 @@
+replicaCount: 2
+
+fullnameOverride: "tokenapp"
+
+image: "tokenapp:0.1.0"
+
+service:
+  type: NodePort
+  port: 9000
+
+postgresql:
+  enabled: true
+  postgresqlUsername: myuser
+  postgresqlPassword: passwd
+  postgresqlDatabase: mytokenapp
+  persistence:
+    size: 0.1Gi
+  service:
+    port: "5432"
+
+ingress:
+  enabled: true
+  hosts:
+    - host: arch.homework
+      paths: ["/users/me/token"]
+
+jwt:
+  publicKey: | 
+    -----BEGIN PUBLIC KEY-----
+    MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCvrcv0G8cVPtFWSHv+FZUmvDk3
+    UFqdbe8h5w+ke/8oBJilOGrcu6lm8KNwnQelg3tYEXWUP36qeIhvhkqwNQyrXpR3
+    t0iYHg1aq+YloRvFpaebo3BuRz07r6XwY+LpQqePt+MtXVtzIRcX+Z5s/D50sMWN
+    38oF7fxJs2ZqLAcP4wIDAQAB
+    -----END PUBLIC KEY-----

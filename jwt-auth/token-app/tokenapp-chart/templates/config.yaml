@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "tokenapp-chart.fullname" . }}-secret
+type: Opaque
+data:
+  PUBLIC_KEY: {{ .Values.jwt.publicKey | b64enc | quote }}

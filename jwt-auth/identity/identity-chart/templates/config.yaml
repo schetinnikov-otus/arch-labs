@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "identity-chart.fullname" . }}-secret
+type: Opaque
+data:
+  DATABASE_URI: {{ printf "postgresql+psycopg2://%s:%s@%s:%s/%s" .Values.postgresql.postgresqlUsername .Values.postgresql.postgresqlPassword (include "postgresql.fullname" .) .Values.postgresql.service.port .Values.postgresql.postgresqlDatabase  | b64enc | quote }}
+  PRIVATE_KEY: {{ .Values.jwt.privateKey | b64enc | quote }}
+  PUBLIC_KEY: {{ .Values.jwt.publicKey | b64enc | quote }}

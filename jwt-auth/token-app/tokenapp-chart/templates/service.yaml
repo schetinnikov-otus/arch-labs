@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "tokenapp-chart.fullname" . }}
+  labels:
+    {{- include "tokenapp-chart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: web
+  selector:
+    {{- include "tokenapp-chart.selectorLabels" . | nindent 4 }}

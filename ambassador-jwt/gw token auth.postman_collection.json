@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "f69a3b43-9788-4c83-938e-b210b1559a5c",
+		"name": "gw token auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "регистрация",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9aeed0f3-7157-4c94-8172-78ece8bab015",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1837abc2-59c8-4f26-9be8-a3ee7f73deb9",
+						"exec": [
+							"pm.collectionVariables.set(\"password\", pm.variables.replaceIn('{{$randomPassword}}'))",
+							"pm.collectionVariables.set(\"email\", pm.variables.replaceIn('{{$randomEmail}}'))",
+							"pm.collectionVariables.set(\"login\", pm.variables.replaceIn('{{$randomUserName}}'))",
+							"pm.collectionVariables.set(\"firstName\", pm.variables.replaceIn('{{$randomFirstName}}'))",
+							"pm.collectionVariables.set(\"lastName\", pm.variables.replaceIn('{{$randomLastName}}'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"{{login}}\", \n\t\"password\": \"{{password}}\",\n\t\"email\": \"{{email}}\",\n\t\"first_name\": \"{{firstName}}\",\n\t\"last_name\": \"{{lastName}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/auth/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "логин",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b8676206-3c8c-49db-9197-dbc6aa411cc0",
+						"exec": [
+							"var responseJSON = JSON.parse(responseBody)",
+							"pm.collectionVariables.set(\"IDtoken\", responseJSON[\"IDtoken\"])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\": \"{{login}}\", \"password\": \"{{password}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/auth/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JWKS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/auth/.well-known/jwks.json",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth",
+						".well-known",
+						"jwks.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "проверить данные о пользователе ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0f06a8a4-704f-4108-940e-e7fbf080c562",
+						"exec": [
+							"pm.test(\"test token data\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.email).to.eql(pm.collectionVariables.get(\"email\"))",
+							"    pm.expect(jsonData.last_name).to.eql(pm.collectionVariables.get(\"lastName\"))",
+							"    pm.expect(jsonData.first_name).to.eql(pm.collectionVariables.get(\"firstName\"))",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{IDtoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/users/me",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "aaad30ae-d75d-4f75-826e-9c478b26accb",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "822720e5-05fc-4616-9ae1-bfea25560ee2",
+				"type": "text/javascript",
+				"exec": [
+					"tests[\"[INFO] Request: \" + (('data' in request) ? request['data'] : '') ] = true;",
+					"tests[\"[INFO] Response: \" + responseBody] = true;"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "abae4bf9-b4b4-4543-8768-0e9d9844df11",
+			"key": "IDtoken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "1c841526-1b56-4cb6-abcd-44b39e93b172",
+			"key": "password",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "1acd190d-c26f-4b75-b638-04b73618369a",
+			"key": "email",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "2cdb909d-873d-4865-b2a6-39437fec52f5",
+			"key": "login",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "9e86a8a5-ef6c-4675-942a-b53e20321215",
+			"key": "firstName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "167d31d1-eb84-4cb0-88e5-d40830796fd2",
+			"key": "lastName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "6678f2c5-e753-481b-bd3b-d79cd333bcae",
+			"key": "baseUrl",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		}
+	],
+	"protocolProfileBehavior": {}
+}

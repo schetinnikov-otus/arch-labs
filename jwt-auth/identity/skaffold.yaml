@@ -1,0 +1,16 @@
+apiVersion: skaffold/v2beta2
+kind: Config
+build:
+  tagPolicy:
+    sha256: {}
+  artifacts:
+  - image: identity
+    context: .
+deploy:
+  helm:
+    releases:
+    - name: identity
+      chartPath: identity-chart
+      skipBuildDependencies: true
+      values:
+        image: identity

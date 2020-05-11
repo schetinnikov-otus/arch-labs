@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "30961a25-6979-4310-86fd-3077f5cd5116",
+		"name": "token auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "регистрация",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d5cf101-e365-4a4e-8468-4bd2a5a38ca7",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "80e8eb14-c5cc-4cd1-b985-b0a26fb33847",
+						"exec": [
+							"pm.collectionVariables.set(\"password\", pm.variables.replaceIn('{{$randomPassword}}'))",
+							"pm.collectionVariables.set(\"email\", pm.variables.replaceIn('{{$randomEmail}}'))",
+							"pm.collectionVariables.set(\"login\", pm.variables.replaceIn('{{$randomUserName}}'))",
+							"pm.collectionVariables.set(\"firstName\", pm.variables.replaceIn('{{$randomFirstName}}'))",
+							"pm.collectionVariables.set(\"lastName\", pm.variables.replaceIn('{{$randomLastName}}'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"{{login}}\", \n\t\"password\": \"{{password}}\",\n\t\"email\": \"{{email}}\",\n\t\"first_name\": \"{{firstName}}\",\n\t\"last_name\": \"{{lastName}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://arch.homework/register",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "логин",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7fd98d40-4c9f-49c3-8386-ebe3db888d0e",
+						"exec": [
+							"var responseJSON = JSON.parse(responseBody)",
+							"pm.collectionVariables.set(\"IDtoken\", responseJSON[\"IDtoken\"])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\": \"{{login}}\", \"password\": \"{{password}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://arch.homework/login",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "проверить данные о пользователе ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a0b17a88-f449-40ec-b223-9ca5154c640f",
+						"exec": [
+							"pm.test(\"test token data\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.email).to.eql(pm.collectionVariables.get(\"email\"))",
+							"    pm.expect(jsonData.family_name).to.eql(pm.collectionVariables.get(\"lastName\"))",
+							"    pm.expect(jsonData.given_name).to.eql(pm.collectionVariables.get(\"firstName\"))",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{IDtoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://arch.homework/users/me/token",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"users",
+						"me",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "963b7314-a038-47e8-b875-4e1bb509a48f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "1781a11c-2b1b-4860-8b65-3891a0b866c2",
+				"type": "text/javascript",
+				"exec": [
+					"tests[\"[INFO] Request: \" + (('data' in request) ? request['data'] : '') ] = true;",
+					"tests[\"[INFO] Response: \" + responseBody] = true;"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "8921637c-5f7b-4bdd-8101-fcf329d194dc",
+			"key": "IDtoken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "930f34f2-9893-4b89-91cd-1fd72bc3ff16",
+			"key": "password",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "2a16a46a-db5c-400b-82f8-a8e3129d187c",
+			"key": "email",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "a534cc48-6e4f-40c3-a055-ada93b4c9f67",
+			"key": "login",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "dbbd3aa3-e59f-481f-9163-38b62a6a658e",
+			"key": "firstName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "37e655d1-60fe-416d-961b-38a9a9aedc60",
+			"key": "lastName",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

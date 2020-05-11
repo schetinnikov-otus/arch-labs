@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "identity-chart.fullname" . }}
+  labels:
+    {{- include "identity-chart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "identity-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "identity-chart.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image }}"
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          env:
+            - name: DATABASE_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "identity-chart.fullname" . }}-secret
+                  key: DATABASE_URI
+            - name: PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "identity-chart.fullname" . }}-secret
+                  key: PRIVATE_KEY
+            - name: PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "identity-chart.fullname" . }}-secret
+                  key: PUBLIC_KEY
