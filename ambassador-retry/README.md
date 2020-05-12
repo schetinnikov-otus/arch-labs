@@ -126,7 +126,7 @@ Ambassador запущен в роли  API Gateway, но не в роли INgres
 
 Пятисоток примено, как в нашем конфиге 10%
 
-![image-20200511192834239](/ambassador-retry/README.assets/image-20200511192834239.png)
+![image-20200511192834239](./README.assets/image-20200511192834239.png)
 
 
 
