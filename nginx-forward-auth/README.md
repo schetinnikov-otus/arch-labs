@@ -1,4 +1,11 @@
+Архитектура решения
+
+![image-20200512154011363](README.assets/image-20200512154011363.png)
+
+
+
 В начале убедиться, что nginx ingress запущен
+
 ```
 ➜  nginx-forward-auth git:(master) ✗ minikube addons  enable ingress
 🌟  The 'ingress' addon is enabled
