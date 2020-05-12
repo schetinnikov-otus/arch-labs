@@ -158,5 +158,5 @@ mapping.getambassador.io/app-mapping configured
 
 Количество 500ок существенно уменьшилось.
 
-![image-20200511192923373](/Users/test/otus/arch/labs/ambassador-retry/README.assets/image-20200511192923373.png)
+![image-20200511192923373](./README.assets/image-20200511192923373.png)
 
