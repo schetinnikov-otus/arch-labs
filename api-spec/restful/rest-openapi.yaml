@@ -68,6 +68,23 @@ paths:
           application/json:
             schema:
               type: object
+              properties:
+                userId: 
+                  type: integer
+              required: 
+                - userId
+            example: 
+              userId: 42
+
+      responses:
+        '201':
+          description: Заведение карты успешно
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
                     type: integer
                   cardNumber:
                     type: string
