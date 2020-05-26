@@ -1,0 +1,95 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: schetinnikov@gmail.com
+  title: Регистрация пользователя/Event Notifications
+  version: 0.1.0
+tags:
+  - name: user
+    description: Сервис работы с пользователем
+  - name: loyalty
+    description: Сервис лояльности
+paths:
+  '/users/{userId}':
+    get:
+      tags:
+        - user
+      summary: Ресурс пользователя по ID
+      description: Вернуть данные пользователя
+      operationId: getUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID пользователя
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Такого пользователя нет
+          
+  '/cards/{cardId}':
+    get:
+      tags:
+        - loyalty
+      summary: Ресурс пользователя по ID
+      description: Вернуть данные пользователя
+      operationId: getCardById
+      parameters:
+        - name: cardId
+          in: path
+          description: ID карты лояльности
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: integer
+                    format: int64
+                  cardNumber: 
+                    type: string
+                    format: "XXXX-XXXX"
+              example:
+                id: 42
+                cardNumber: 2434-2342 
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+      required: 
+          - username
+          - password
+          - email

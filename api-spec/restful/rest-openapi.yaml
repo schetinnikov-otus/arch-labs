@@ -1,0 +1,166 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: schetinnikov@gmail.com
+  title: Регистрация пользователя
+  version: 0.1.0
+tags:
+  - name: user
+    description: Сервис работы с пользователем
+  - name: loyalty
+    description: Сервис лояльности
+  - name: notification
+    description: Сервис нотификаций
+paths:
+  /users/register:
+    post:
+      tags:
+        - user
+      summary: Регистрация пользователя
+      description: Регистрация пользователя. После регистрации отправляет письмо на email и выпускается карта лояльности
+      operationId: registerUser
+      requestBody:
+        $ref: '#/components/requestBodies/User'
+      responses:
+        '201':
+          description: Регистрация прошла успешно
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Неправильный запрос
+  '/users/{userId}':
+    get:
+      tags:
+        - user
+      summary: Ресурс пользователя по ID
+      description: Вернуть данные пользователя
+      operationId: getUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID пользователя
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Неправильный запрос
+        '404':
+          description: Такого пользователя нет
+  /cards:
+    post:
+      tags:
+        - loyalty
+      summary: Заведение карты лояльности
+      description: Метод для заведения и создания карты лояльности
+      operationId: createLoyaltyCard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+                    type: integer
+                  cardNumber:
+                    type: string
+                    format: "XXXX-XXXX"
+                  status:
+                    type: string
+              example: 
+                id: 42
+                cardNumber: "1235-6892"
+  /send_email:
+    post:
+      tags:
+        - notification
+      summary: Отослать email на почту
+      operationId: sendEmail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                templateId:
+                  type: integer
+                context: 
+                  type: object
+              required: 
+                - email
+                - templateId
+                - context
+            example: 
+              email: "vasya@pupkin.ru"
+              templateId: 42
+              context: 
+                firstName: vasya
+                lastName: pupkin
+                loyaltyCardNumber: 1231-1231
+      responses:
+        '202':
+          description: Отсылка взята в работу
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobId: 
+                    type: string
+              example: 
+                jobId: 000123234091234
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+      required: 
+          - username
+          - password
+          - email
+  requestBodies:
+    User:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+          examples:
+            sample-user:
+              summary: Обычный пользователь
+              value:
+                username: johndoe589
+                firstName: John
+                lastName: Doe
+                email: bestjohn@doe.com
+                phone: '+71002003040'
+                password: 'Jsd28xzd'
+                address: 'ул Большая Филевская д 16 кв 19'
+      description: User object that needs to be created
+      required: true
