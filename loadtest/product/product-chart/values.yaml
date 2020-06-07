@@ -1,0 +1,25 @@
+replicaCount: 1
+
+fullnameOverride: "product"
+
+image: "product:0.1.0"
+
+service:
+  type: NodePort
+  port: 9000
+
+postgresql:
+  enabled: true
+  postgresqlUsername: productuser
+  postgresqlPassword: productpasswd
+  postgresqlDatabase: productdb
+  persistence:
+    size: 1Gi
+  service:
+    port: "5432"
+
+ingress:
+  enabled: true
+  hosts:
+    - host: arch.homework
+      paths: ["/products/", "/search"]

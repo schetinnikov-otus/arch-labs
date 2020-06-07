@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: pumba
+spec:
+  selector:
+    matchLabels:
+      app: pumba
+  template:
+    metadata:
+      labels:
+        app: pumba
+        com.gaiaadm.pumba: "true" # prevent pumba from killing itself
+      name: pumba
+    spec:
+      containers:
+      # randomly add a  3000ms ± 30ms delay to 'test-2' Pod containers every 5m for 2m, where variation in delay is described by `normal` distribution,
+      - image: gaiaadm/pumba
+        imagePullPolicy: Always
+        name: pumba-delay
+        args:
+          - --random
+          - --log-level
+          - info
+          - --label
+          - statefulset.kubernetes.io/pod-name=product-postgresql-0
+          - netem
+          - --duration
+          - 5m 
+          - --tc-image
+          - gaiadocker/iproute2
+          - delay
+          - --time
+          - "1000"
+          - --jitter
+          - "10"
+          - --distribution 
+          - normal
+        securityContext:
+          privileged: true
+        resources:
+          requests:
+            cpu: 10m
+            memory: 5M
+          limits:
+            cpu: 100m
+            memory: 20M
+        volumeMounts:
+          - name: dockersocket
+            mountPath: /var/run/docker.sock
+      volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+          name: dockersocket
