@@ -1,0 +1,66 @@
+cp-zookeeper:
+  enabled: true
+  servers: 3
+  image: confluentinc/cp-zookeeper
+  imageTag: 5.5.0
+  imagePullSecrets:
+  heapOptions: "-Xms512M -Xmx512M"
+  persistence:
+    enabled: true
+    dataDirSize: 1Gi
+    dataLogDirSize: 1Gi
+  resources: {}
+
+cp-kafka:
+  enabled: true
+  brokers: 3
+  image: confluentinc/cp-enterprise-kafka
+  imageTag: 5.5.0
+  imagePullSecrets:
+  heapOptions: "-Xms512M -Xmx512M"
+  persistence:
+    enabled: true
+    size: 1Gi
+    disksPerBroker: 1
+  resources: {}
+
+cp-schema-registry:
+  enabled: true
+  image: confluentinc/cp-schema-registry
+  imageTag: 5.5.0
+  imagePullSecrets:
+  heapOptions: "-Xms512M -Xmx512M"
+  resources: {}
+
+cp-kafka-rest:
+  enabled: true
+  image: confluentinc/cp-kafka-rest
+  imageTag: 5.5.0
+  imagePullSecrets:
+  heapOptions: "-Xms512M -Xmx512M"
+  resources: {}
+
+cp-kafka-connect:
+  enabled: true
+  image: confluentinc/cp-kafka-connect
+  imageTag: 5.5.0
+  imagePullSecrets:
+  heapOptions: "-Xms512M -Xmx512M"
+  resources: {}
+
+cp-ksql-server:
+  enabled: true
+  image: confluentinc/cp-ksqldb-server
+  imageTag: 5.5.0
+  imagePullSecrets:
+  heapOptions: "-Xms512M -Xmx512M"
+  ksql:
+    headless: false
+
+cp-control-center:
+  enabled: false
+  image: confluentinc/cp-enterprise-control-center
+  imageTag: 5.5.0
+  imagePullSecrets:
+  heapOptions: "-Xms512M -Xmx512M"
+  resources: {}

@@ -1,0 +1,57 @@
+42,{"orderId": 42, "userId": 12, "status": "CREATED"}
+43,{"orderId": 43, "userId": 13, "status": "CREATED"}
+44,{"orderId": 44, "userId": 14, "status": "CREATED"}
+45,{"orderId": 45, "userId": 15, "status": "CREATED"}
+46,{"orderId": 46, "userId": 16, "status": "CREATED"}
+46,{"orderId": 46, "userId": 16, "status": "UPDATED"}
+
+47,{"orderId": 47, "userId": 17, "status": "CREATED"}
+
+42,{"loyaltyCardNumber": "42-1231", "orderId": 42}
+43,{"loyaltyCardNumber": "43-1331", "orderId": 43}
+44,{"loyaltyCardNumber": "44-1431", "orderId": 44}
+45,{"loyaltyCardNumber": "45-1531", "orderId": 45}
+46,{"loyaltyCardNumber": "46-1631", "orderId": 46}
+
+12,{"userId": 12, "lastName": "Ivanov", "firstName": "Ivan"}
+13,{"userId": 13, "lastName": "Petrov", "firstName": "Petr"}
+14,{"userId": 14, "lastName": "Vasiliev", "firstName": "Vasiliy"}
+
+14,{"userId": 14, "lastName": "Vasiliev", "firstName": "Vasilius"}
+13,{"userId": 13, "lastName": "Petrov", "firstName": "Pyotr"}
+
+52,{"orderId": 52, "userId": 12, "status": "CREATED"}
+53,{"orderId": 53, "userId": 13, "status": "CREATED"}
+54,{"orderId": 54, "userId": 14, "status": "CREATED"}
+55,{"orderId": 55, "userId": 15, "status": "CREATED"}
+
+
+52,{"loyaltyCardNumber": "52-1231", "orderId": 52}
+53,{"loyaltyCardNumber": "53-1331", "orderId": 53}
+55,{"loyaltyCardNumber": "55-1531", "orderId": 55}
+55,{"loyaltyCardNumber": "55-1531", "orderId": 55}
+56,{"loyaltyCardNumber": "56-1631", "orderId": 56}
+
+
+62,{"orderId": 62, "userId": 12, "status": "CREATED"}
+63,{"orderId": 63, "userId": 13, "status": "CREATED"}
+64,{"orderId": 64, "userId": 14, "status": "CREATED"}
+65,{"orderId": 65, "userId": 15, "status": "UPDATED"}
+
+62,{"loyaltyCardNumber": "52-1231", "orderId": 62}
+63,{"loyaltyCardNumber": "53-1331", "orderId": 63}
+64,{"loyaltyCardNumber": "55-1531", "orderId": 64}
+65,{"loyaltyCardNumber": "55-1531", "orderId": 65}
+66,{"loyaltyCardNumber": "56-1631", "orderId": 66}
+
+
+72,{"orderId": 72, "userId": 12, "status": "CREATED"}
+73,{"orderId": 73, "userId": 13, "status": "CREATED"}
+74,{"orderId": 74, "userId": 14, "status": "CREATED"}
+75,{"orderId": 75, "userId": 15, "status": "UPDATED"}
+
+
+73,{"loyaltyCardNumber": "53-1331", "orderId": 73}
+74,{"loyaltyCardNumber": "55-1531", "orderId": 74}
+75,{"loyaltyCardNumber": "55-1531", "orderId": 75}
+76,{"loyaltyCardNumber": "56-1631", "orderId": 76}
