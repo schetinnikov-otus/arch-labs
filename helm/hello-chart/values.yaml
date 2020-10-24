@@ -1,0 +1,14 @@
+replicaCount: 2
+
+image: hello-py:0.0.1
+
+service:
+  type: NodePort
+  port: 9000
+
+externalPostgresql:
+  postgresqlUsername: myuser
+  postgresqlPassword: passwd
+  postgresqlDatabase: myapp
+  postgresqlHost: "postgres"
+  postgresqlPort: "5432"
