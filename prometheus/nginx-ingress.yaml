@@ -3,9 +3,9 @@ controller:
   
   reportNodeInternalIp: true
 
-  daemonset:
-    useHostPort: true
-    hostPorts:
+  hostPort:
+    enabled: true
+    ports:
       http: 80
       https: 443
 
