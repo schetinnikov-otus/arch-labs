@@ -1,0 +1,17 @@
+fullnameOverride: postgres
+postgresqlUsername: myuser
+postgresqlPassword: passwd
+postgresqlDatabase: myapp
+
+service:
+  type: NodePort
+  port: 5432
+
+persistence:
+  enabled: true
+  size: 1Gi
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 250m

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-pvc
+spec:
+  containers:
+  - image: k8s.gcr.io/busybox
+    name: busybox
+    command:
+      - "sleep"
+      - "3600"
+    volumeMounts:
+    - mountPath: /test-mnt
+      name: my-volume
+  volumes:
+  - name: my-volume
+    persistentVolumeClaim:
+      claimName: my-pv-claim

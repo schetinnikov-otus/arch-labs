@@ -1,0 +1,15 @@
+apiVersion: skaffold/v2beta1
+kind: Config
+build:
+  tagPolicy:
+    sha256: {}
+  artifacts:
+  - image: hello-py
+    context: hello-py
+deploy:
+  helm:
+    releases:
+    - name: hello-skaffold
+      chartPath: hello-chart
+      values:
+        image: hello-py
