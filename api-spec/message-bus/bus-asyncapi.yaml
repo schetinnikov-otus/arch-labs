@@ -59,10 +59,12 @@ channels:
     subscribe:
       message:
         name: registerUserResponse
+        contentType: application/json
         payload:
            type: object
            properties:
-             status: string
+             status: 
+               type: string
         headers:
            type: object
            properties:
@@ -88,8 +90,8 @@ channels:
            properties:
              userId: 
                type: integer
-             required: 
-               - userId
+           required: 
+             - userId
         headers:
            type: object
            properties:
