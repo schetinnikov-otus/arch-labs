@@ -180,7 +180,7 @@
 		{
 			"name": "обновить данные о пользователе 1",
 			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
