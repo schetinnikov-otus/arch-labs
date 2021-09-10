@@ -1,8 +1,16 @@
 apiVersion: v2
 name: app-chart
-description: A Helm chart for Kubernetes
+description: main app
 
 type: application
 
-version: 0.1.0
-appVersion: 0.1.0
+version: 0.2.17
+appVersion: 0.2.14
+
+dependencies:
+  - name: postgresql
+    version: 8.x.x
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
+    tags:
+      - app-database

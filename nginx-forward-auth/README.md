@@ -11,6 +11,12 @@
 🌟  The 'ingress' addon is enabled
 ```
 
+Создаем и делаем дефолтным неймспейс auth
+```
+kubectl create ns auth
+kubectl config set-context --current --namespace=auth
+```
+
 Собираем и запускаем с помощью skaffold сервис аутентификации
 
 ```bash
@@ -89,7 +95,7 @@ ingress.networking.k8s.io/app created
 Запускаем тесты с помощью newman и проверяем, что все корректно запустилось. 
 
 ```
-➜  nginx-forward-auth git:(master) ✗ newman run nginx\ forward\ auth.postman_collection.json
+➜  nginx-forward-auth git:(master) ✗ newman run "nginx forward auth.postman_collection.json"
 newman
 
 nginx forward auth

@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         {{- include "app-chart.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
@@ -21,3 +23,9 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
+          env:
+            - name: DATABASE_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "app-chart.fullname" . }}-secret
+                  key: DATABASE_URI
