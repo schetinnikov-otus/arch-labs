@@ -1,9 +1,19 @@
-replicaCount: 2
+replicaCount: 1
 
 fullnameOverride: "app"
 
-image: "app:0.1.0"
+image: "app:0.2.14"
 
 service:
   type: NodePort
   port: 9000
+
+postgresql:
+  enabled: true
+  postgresqlUsername: appuser
+  postgresqlPassword: apppasswd
+  postgresqlDatabase: appdb
+  persistence:
+    size: 0.1Gi
+  service:
+    port: "5432"

@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "регистрация",
+			"name": "регистрация 1",
 			"event": [
 				{
 					"listen": "test",
@@ -27,7 +27,9 @@
 							"pm.collectionVariables.set(\"email\", pm.variables.replaceIn('{{$randomEmail}}'))",
 							"pm.collectionVariables.set(\"login\", pm.variables.replaceIn('{{$randomUserName}}'))",
 							"pm.collectionVariables.set(\"firstName\", pm.variables.replaceIn('{{$randomFirstName}}'))",
-							"pm.collectionVariables.set(\"lastName\", pm.variables.replaceIn('{{$randomLastName}}'))"
+							"pm.collectionVariables.set(\"lastName\", pm.variables.replaceIn('{{$randomLastName}}'))",
+							"pm.collectionVariables.set(\"avatar_uri\", pm.variables.replaceIn('{{randomAvatarImage}}'))",
+							"pm.collectionVariables.set(\"age\", pm.variables.replaceIn('{{randomInt}}'))"
 						],
 						"type": "text/javascript"
 					}
@@ -58,7 +60,7 @@
 			"response": []
 		},
 		{
-			"name": "логин",
+			"name": "логин 1",
 			"event": [
 				{
 					"listen": "test",
@@ -97,7 +99,7 @@
 			"response": []
 		},
 		{
-			"name": "проверить данные о пользователе ",
+			"name": "проверить данные о пользователе 1",
 			"event": [
 				{
 					"listen": "test",
@@ -139,7 +141,26 @@
 			"response": []
 		},
 		{
-			"name": "получить данные о пользователе",
+			"name": "получить данные о пользователе 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4667b6a1-bb1c-4138-85f9-9a12cf159e91",
+						"exec": [
+							"pm.test(\"test token data\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.email).to.eql(pm.collectionVariables.get(\"email\"))",
+							"    pm.expect(jsonData.last_name).to.eql(pm.collectionVariables.get(\"lastName\"))",
+							"    pm.expect(jsonData.first_name).to.eql(pm.collectionVariables.get(\"firstName\"))",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -157,7 +178,73 @@
 			"response": []
 		},
 		{
-			"name": "логаут",
+			"name": "обновить данные о пользователе 1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"avatar_uri\": \"{{avatar_uri}}\", \"age\": \"{{age}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/me",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "получить данные о пользователе 1 после обновления",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4667b6a1-bb1c-4138-85f9-9a12cf159e92",
+						"exec": [
+							"pm.test(\"test token data\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.email).to.eql(pm.collectionVariables.get(\"email\"))",
+							"    pm.expect(jsonData.last_name).to.eql(pm.collectionVariables.get(\"lastName\"))",
+							"    pm.expect(jsonData.first_name).to.eql(pm.collectionVariables.get(\"firstName\"))",
+							"    pm.expect(jsonData.avatar_uri).to.eql(pm.collectionVariables.get(\"avatar_uri\"))",
+							"    pm.expect(jsonData.age).to.eql(pm.collectionVariables.get(\"age\"))",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users/me",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "логаут 1",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -174,7 +261,177 @@
 			"response": []
 		},
 		{
-			"name": "получить данные после разлогина",
+			"name": "получить данные после разлогина 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users/me",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "регистрация 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b85be0b7-03b3-4abd-9895-9662dfed7119",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "462236a7-d94c-45f9-b35a-9206cce3f687",
+						"exec": [
+							"pm.collectionVariables.set(\"password\", pm.variables.replaceIn('{{$randomPassword}}'))",
+							"pm.collectionVariables.set(\"email\", pm.variables.replaceIn('{{$randomEmail}}'))",
+							"pm.collectionVariables.set(\"login\", pm.variables.replaceIn('{{$randomUserName}}'))",
+							"pm.collectionVariables.set(\"firstName\", pm.variables.replaceIn('{{$randomFirstName}}'))",
+							"pm.collectionVariables.set(\"lastName\", pm.variables.replaceIn('{{$randomLastName}}'))",
+							"pm.collectionVariables.set(\"avatar_uri\", pm.variables.replaceIn('{{randomAvatarImage}}'))",
+							"pm.collectionVariables.set(\"age\", pm.variables.replaceIn('{{randomInt}}'))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"{{login}}\", \n\t\"password\": \"{{password}}\",\n\t\"email\": \"{{email}}\",\n\t\"first_name\": \"{{firstName}}\",\n\t\"last_name\": \"{{lastName}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "логин 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a22d2a5b-fc4c-4787-b128-7b9dbab942a9",
+						"exec": [
+							"var responseJSON = JSON.parse(responseBody)",
+							"pm.collectionVariables.set(\"IDtoken\", responseJSON[\"IDtoken\"])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\": \"{{login}}\", \"password\": \"{{password}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "проверить данные о пользователе 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4667b6a1-bb1c-4138-85f9-9a12cf159e99",
+						"exec": [
+							"pm.test(\"test token data\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.email).to.eql(pm.collectionVariables.get(\"email\"))",
+							"    pm.expect(jsonData.last_name).to.eql(pm.collectionVariables.get(\"lastName\"))",
+							"    pm.expect(jsonData.first_name).to.eql(pm.collectionVariables.get(\"firstName\"))",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{IDtoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/auth",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "логаут 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/logout",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "получить данные после разлогина 2",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -251,6 +508,18 @@
 			"key": "lastName",
 			"value": "",
 			"type": "string"
+		},
+		{
+			"id": "fff60b2d-6ad5-4f5f-ba41-2323d85f854b",
+			"key": "avatar_uri",
+			"value": "http://arch.homework",
+			"type": "string"
+		},
+		{
+			"id": "44460b2d-6ad5-4f5f-ba41-2323d85f854b",
+			"key": "age",
+			"value": "http://arch.homework",
+			"type": "number"
 		},
 		{
 			"id": "59560b2d-6ad5-4f5f-ba41-2323d85f854b",
