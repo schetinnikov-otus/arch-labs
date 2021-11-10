@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: hello-py
+  repository: kataus/hello-py
 
 service:
   type: NodePort
