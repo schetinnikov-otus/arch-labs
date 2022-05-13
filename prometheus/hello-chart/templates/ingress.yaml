@@ -14,6 +14,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  ingressClassName: nginx
   rules:
   {{- range .Values.ingress.hosts }}
     - host: {{ .host | quote }}
